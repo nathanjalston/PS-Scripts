@@ -1,17 +1,15 @@
-# Using Filter to output expired user accounts.
+# Retrieve expired user accounts.
 
 $date = Get-Date
-Get-ADUser -Filter {AccountExpirationDate -le $date} -Property AccountExpirationDate |`
+Get-ADUser -Filter * -Property AccountExpirationDate |`
+? {$_.AccountExpirationDate -le $date -and $_.AccountExpirationDate -ne $null}
 Select AccountExpirationDate, Name, @{n='UPN'; e={$_.UserPrincipalName}} |`
-Sort AccountExpirationDate, Name |`
-Export-Csv "C:\expacc.csv"
+Sort AccountExpirationDate, Name
 
-<# Using Where (?) and $PSItem ($_.) to output user accounts that expired
-within the last 24 hours#>
+# Retrieve user accounts that expired within the last 24 hours
 
 $date = Get-Date
 Get-ADUser -Filter * -Property AccountExpirationDate |`
 ? {$_.AccountExpirationDate -le $date -and $_.AccountExpirationDate -ge $date.AddHours(-24)} |`
 Select AccountExpirationDate, Name, @{n='UPN'; e={$_.UserPrincipalName}} |`
-Sort AccountExpirationDate, Name |`
-Export-Csv "C:\expacc.csv"
+Sort AccountExpirationDate, Name

@@ -1,12 +1,11 @@
+Function Get-RemoteDrives
+{
 $localhost = $env:ComputerName
 
-$sess = New-PSSession -ComputerName (Get-ADComputer -Filter {Name -ne $localhost} |`
+$drives = Invoke-Command -ScriptBlock {Get-Volume |`
+Where {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $null}}`
+-ComputerName (Get-ADComputer -Filter {Name -ne $localhost} |`
 Select -ExpandProperty Name)
-
-$drives = Invoke-Command -Session $sess -ScriptBlock {Get-Volume |`
-Where {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $null}}
-
-Get-PSSession | Remove-PSSession
 
 $drives | Select @{n='ComputerName';e={$_.PSComputerName}}, DriveLetter, DriveType,`
 @{n='Size (GB)';e={'{0:N2}' -f ($_.Size / 1GB)}},`
@@ -20,3 +19,6 @@ if ($drive.SizeRemaining -ge 100)
 else
 {Write-Host $drive.PSComputerName drive $drive.DriveLetter is not feeling so good.}
 }
+}
+
+Get-RemoteDrives

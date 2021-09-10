@@ -6,6 +6,9 @@ Get-ADUser -Filter * -Property AccountExpirationDate |`
 Select AccountExpirationDate, Name, @{n='UPN'; e={$_.UserPrincipalName}} |`
 Sort AccountExpirationDate, Name
 
+
+<#----------This is a new PS-Script----------#>
+
 # Retrieve user accounts that expired within the last 24 hours
 
 $date = Get-Date

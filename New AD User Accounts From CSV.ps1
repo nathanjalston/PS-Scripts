@@ -1,5 +1,6 @@
 $CsvFile = Read-Host -Prompt "Enter file address"
 $users = Import-Csv $CsvFile
+
 Foreach($user in $users)
 {
 $display = $user.First + " " + $user.Last

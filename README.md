@@ -18,7 +18,7 @@ ________________________________________________________________________________
 ## Get Locked AD User Accounts and Unlock
 
 Retrieves all AD User accounts that currently have Account Lockout Times that are not equal to NULL (are currently locked out). The ForEach enumerates all of the locked accounts and unlocks them with the Unlock-ADAccount cmdlet.
-Note: A certain set of the locked accounts can be unlocked by filtering the appropriate property in the Where-Object (?) statement.
+Note: A specific set of the locked accounts can be unlocked by filtering the appropriate property in the Where-Object (?) statement.
 
 ____________________________________________________________________________________
 ## Get Expired AD User Accounts

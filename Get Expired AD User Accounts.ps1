@@ -2,7 +2,7 @@
 
 $date = Get-Date
 Get-ADUser -Filter * -Property AccountExpirationDate |`
-? {$_.AccountExpirationDate -le $date -and $_.AccountExpirationDate -ne $null}
+? {$_.AccountExpirationDate -le $date -and $_.AccountExpirationDate -ne $null} |`
 Select AccountExpirationDate, Name, @{n='UPN'; e={$_.UserPrincipalName}} |`
 Sort AccountExpirationDate, Name
 

@@ -40,6 +40,7 @@ Sort ComputerName, Name | Format-Table -GroupBy ComputerName
 
 Get-RemotePrinters
 
+
 <#----------This is a new PS-Script----------#>
 
 Function Get-RemoteIP
